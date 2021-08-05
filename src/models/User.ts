@@ -10,9 +10,11 @@ class User extends Generic {
 
   username!: string;
 
-  password!: string;
+  hash: string;
 
-  picture!: string;
+  salt: string;
+
+  picture: string;
 
   email!: string;
 
@@ -44,7 +46,6 @@ export const isUser = (input: any): input is User => {
     // Validate the type of input
     if (typeof input.firstName !== 'string') return false;
     if (typeof input.lastName !== 'string') return false;
-    if (typeof input.username !== 'string') return false;
     if (typeof input.password !== 'string') return false;
     if (typeof input.email !== 'string') return false;
 

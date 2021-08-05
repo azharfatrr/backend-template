@@ -361,3 +361,97 @@
 [2021-08-05T03:51:48.738] [INFO] main - Server running on : http://localhost:8000
 [2021-08-05T03:51:53.122] [INFO] main - Server running on : http://localhost:8000
 [2021-08-05T03:53:20.925] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:54:31.533] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:56:20.816] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:57:23.411] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:58:03.245] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:58:09.920] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:58:22.227] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:58:26.469] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:58:37.807] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:58:55.331] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:59:04.152] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:00:03.437] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:00:47.924] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:01:07.602] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:01:38.900] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:01:42.592] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:01:59.914] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:02:14.846] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:05:50.913] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:05:57.330] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:06:08.668] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:06:16.187] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:06:43.208] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:07:11.682] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:08:03.305] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:08:56.614] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:15:00.765] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:15:06.345] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:15:42.977] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:15:47.554] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:15:51.426] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:15:56.367] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:16:14.367] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:16:29.149] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:42:02.370] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:43:05.526] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:43:14.387] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:43:22.199] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:43:28.456] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:44:18.466] [ERROR] auth - Could not register the user: insert into `user` (`email`, `first_name`, `last_name`, `password`, `username`) values ('azharfatrr@gmail.com', 'Azhar', 'Faturahman', '123456', 'azharfatrr') - Unknown column 'password' in 'field list'
+[2021-08-05T04:44:50.406] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:45:21.586] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:45:31.476] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:45:35.277] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:45:36.064] [ERROR] auth - Could not register the user: insert into `user` (`email`, `first_name`, `hash`, `last_name`, `salt`, `username`) values ('azharfatrr@gmail.com', 'Azhar', 'e5fda7258a74bbe50669be082fe9b46c7b022f96c705d868c509b767778e52848a3f6580411419fe017c653bf8f7e324aac5384eb4b0d853c416cc1c55e8be6a', 'Faturahman', 'bd75f41c80899ce98a51a71e196d595e2eda9c0be72b42f693620b0eccd74627', 'azharfatrr') - Field 'role' doesn't have a default value
+[2021-08-05T04:46:03.649] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:46:16.799] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:46:33.125] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:46:46.400] [ERROR] auth - Could not register the user: insert into `user` (`email`, `first_name`, `hash`, `last_name`, `role`, `salt`, `username`) values ('azharfatrr@gmail.com', 'Azhar', '60e7919aa5540f0b9c7845cf5de12865778f2c629e56a458a5007b2de7be60e9eb6c1fc6dbd139ddf4d442e511a10a5cace0660e4ba98a031484689488b3daaa', 'Faturahman', 'user', 'acd72331c2d4588538d4437bf68801e1a5f68255c7a3077e8b5840fa3982801a', 'azharfatrr') - Duplicate entry 'azharfatrr' for key 'user_username_unique'
+[2021-08-05T04:47:27.165] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:47:38.805] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:48:11.030] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:48:16.744] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:48:21.144] [ERROR] auth - Could not register the user: insert into `user` (`email`, `first_name`, `hash`, `last_name`, `role`, `salt`, `username`) values ('azharfatrr@gmail.com', 'Azhar', '10767ddf31b067bcb6bc1ca23b7a8fd543b98d1b0939a679e5b3dc44751441624dfcc2df3679bcd18422f7925c2178f93d08250e8024069d0a2d71adfb4eee66', 'Faturahman', 'user', '9346fe6e087363091981f726ed93479d0d44d9b9c40b0006612169c093b143fa', 'azharfatrr') - Duplicate entry 'azharfatrr' for key 'user_username_unique'
+[2021-08-05T04:48:35.988] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:48:39.764] [ERROR] auth - Could not register the user: insert into `user` (`email`, `first_name`, `hash`, `last_name`, `role`, `salt`, `username`) values ('azharfatrr@gmail.com', 'Azhar', '767ea30dc770d70c975c994cd1c0da0d4b508901ab670a2d111f6f971485da5b1064f1417e85cf843c893cf80a35dec63aa2da6b1d5fe0e7a35e21406d3f14c5', 'Faturahman', 'user', '4a72746627857d3bb1ae09f59a87e4c75abea18baaba80f76b0712dbf99cac6c', 'azharfatrr') - Duplicate entry 'azharfatrr' for key 'user_username_unique'
+[2021-08-05T04:49:03.003] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:49:42.616] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:49:43.225] [ERROR] auth - Could not register the user: insert into `user` (`email`, `first_name`, `hash`, `last_name`, `role`, `salt`, `username`) values ('azharfatrr@gmail.com', 'Azhar', 'c96604e774dd99881340c7ec0b3dbc2c87cc65b58d3e9de342b148ab4cf424126edca0ef86eb8da0056535990b0143daca071acbc0d257f1f33f79e8d145e644', 'Faturahman', 'user', 'c171ad10836f98ce6d99e4ba77858cd7bc74488f949a018cbcbc639b6aa93d21', 'azharfatrr') - Duplicate entry 'azharfatrr' for key 'user_username_unique'
+[2021-08-05T04:50:14.517] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:50:15.600] [ERROR] auth - Could not register the user: insert into `user` (`email`, `first_name`, `hash`, `last_name`, `role`, `salt`, `username`) values ('azharfatrr@gmail.com', 'Azhar', '96252d4035f82d3c16872979e728e29423684e4053ef3ad8fe760108da2c53cefaa84c71eb85fe08a589fecfe3a4ba8718e485e36047f72b27e94c7d65f129f9', 'Faturahman', 'user', '77fe75b8ad2061816fd8bb28e972e4a9c3aa3c7189acc40ec6a2974d50472619', 'azharfatrr') - Duplicate entry 'azharfatrr' for key 'user_username_unique'
+[2021-08-05T04:50:25.802] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:51:06.527] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:51:13.549] [ERROR] auth - Could not register the user: insert into `user` (`email`, `first_name`, `hash`, `last_name`, `role`, `salt`, `username`) values ('azharfatrr@gmail.com', 'Azhar', 'dd08d81bf2eac29e94b2c5b2e460d3b0ec1f99c7cdf8f7b3a6c159f482b94d17820461b3b9888a6e3c36e2b45fc7de52681131be93507b47a051bec24d65c7bd', 'Faturahman', 'user', '7f75eb2b565bb4bd4d8729c9a36ee2669090fee3590337233877b02044fb70a0', 'azharfatrr') - Duplicate entry 'azharfatrr' for key 'user_username_unique'
+[2021-08-05T04:51:25.369] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:51:55.418] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:52:02.297] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:52:02.714] [ERROR] auth - Could not register the user: insert into `user` (`email`, `first_name`, `hash`, `last_name`, `role`, `salt`, `username`) values ('azharfatrr@gmail.com', 'Azhar', '453b22a188c3fc807f07fcc58d099f3eec5a8a565d459822d3afb0e55da863b3b2758d244587f8fde9d0eef72972d2b929e9fe48b0de150d13e7567a4462b5c7', 'Faturahman', 'user', 'fab21c3e3e932701c9b76ccc3e9079298082cd1b6e7083dff2b6f4154360b930', 'azharfatrr') - Duplicate entry 'azharfatrr' for key 'user_username_unique'
+[2021-08-05T04:52:23.523] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:52:57.520] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:52:58.197] [ERROR] auth - Could not register the user: insert into `user` (`email`, `first_name`, `hash`, `last_name`, `role`, `salt`, `username`) values ('azharfatrr@gmail.com', 'Azhar', '22cdbecbafa11b830254a5fa060d39cad1b11edf357b703c858e78f198d976581d3810fb59d3ac5eef14872d5404f6587cab8f8faecb8c842a32970100ab691d', 'Faturahman', 'user', '0e991dba437f2ff019e896345090ce4a11d5eb895c78631929d89d4dee37c1de', 'azharfatrr') - Duplicate entry 'azharfatrr' for key 'user_username_unique'
+[2021-08-05T04:53:13.276] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:53:42.949] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:53:59.238] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:54:07.339] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:54:59.020] [ERROR] auth - Could not login: The "password" argument must be of type string or an instance of Buffer, TypedArray, or DataView. Received undefined
+[2021-08-05T04:55:35.639] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:55:42.826] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:55:45.081] [ERROR] auth - Could not login: The "password" argument must be of type string or an instance of Buffer, TypedArray, or DataView. Received undefined
+[2021-08-05T04:56:12.523] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:56:20.685] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:56:35.781] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T04:56:45.048] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T05:01:26.759] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T05:02:06.284] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T05:02:28.280] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T05:03:07.941] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T05:03:23.744] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T05:03:30.179] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T05:03:34.992] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T05:04:13.745] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T05:04:23.025] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T05:05:31.165] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T05:05:39.128] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T05:05:43.417] [INFO] main - Server running on : http://localhost:8000

@@ -53,7 +53,6 @@ passport.use(
     const { data, exp } = payload;
 
     // Check token expired or not.
-    console.log(exp);
     if (Date.now() >= exp) return done(null, false);
 
     // Check if id exist or not.
