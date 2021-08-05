@@ -1,7 +1,9 @@
 # BACKEND-TEMPLATE
 
 ## ENVIROMENT FILE
+
 Note : Keep `.env` file in project root folder
+
 ```
 MYSQL_HOST=
 MYSQL_PORT=

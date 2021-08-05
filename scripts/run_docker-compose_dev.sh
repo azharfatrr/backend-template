@@ -1,1 +1,1 @@
-docker-compose -p virtual-hospital -f deployments/compose/docker-compose.yml up --build
+docker-compose -p backend-template -f deployments/compose/docker-compose.yml up --build

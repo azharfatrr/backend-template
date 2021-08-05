@@ -52,3 +52,15 @@
 [2021-07-30T08:05:25.458] [ERROR] user - Could not get all user: connect ECONNREFUSED 127.0.0.1:3306
 [2021-07-30T08:08:34.307] [ERROR] user - Could not get all user: connect ECONNREFUSED 127.0.0.1:3306
 [2021-07-30T08:10:34.112] [ERROR] user - Could not get all user: connect ECONNREFUSED 127.0.0.1:3306
+[2021-08-05T03:04:52.293] [ERROR] user - Could not create user data: connect ECONNREFUSED 127.0.0.1:3306
+[2021-08-05T03:06:49.218] [ERROR] user - Could not create user data: connect ETIMEDOUT
+[2021-08-05T03:07:04.475] [ERROR] user - Could not create user data: connect ETIMEDOUT
+[2021-08-05T03:11:09.568] [ERROR] user - Could not create user data: connect ENOENT /var/run/mysqld/mysqld.sock
+[2021-08-05T03:13:30.063] [ERROR] user - Could not create user data: connect ECONNREFUSED 127.0.0.1:3306
+[2021-08-05T03:14:15.834] [ERROR] user - Could not create user data: insert into `user` (`email`, `first_name`, `last_name`, `password`, `picture`, `role`, `username`) values ('azharfatrr@gmail.com', 'Azhar', 'Faturahman', '123456', 'Hehe', 'admin', 'azharfatrr') - Table 'virtual-hospital.user' doesn't exist
+[2021-08-05T03:15:12.896] [ERROR] user - Could not create user data: insert into `user` (`email`, `first_name`, `last_name`, `password`, `picture`, `role`, `username`) values ('azharfatrr@gmail.com', 'Azhar', 'Faturahman', '123456', 'Hehe', 'admin', 'azharfatrr') - Table 'virtual-hospital.user' doesn't exist
+[2021-08-05T03:23:15.665] [ERROR] user - Could not create user data: insert into `user` (`email`, `first_name`, `last_name`, `password`, `picture`, `role`, `username`) values ('azharfatrr@gmail.com', 'Azhar', 'Faturahman', '123456', 'Hehe', 'admin', 'azharfatrr2') - Table 'backend-template.user' doesn't exist
+[2021-08-05T03:28:23.294] [ERROR] auth - Could not register: Bad "options.expiresIn" option the payload already has an "exp" property.
+[2021-08-05T03:29:48.593] [ERROR] auth - Could not register: Bad "options.expiresIn" option the payload already has an "exp" property.
+[2021-08-05T03:30:14.080] [ERROR] auth - Could not register: maxAge should be a Number
+[2021-08-05T03:31:43.945] [ERROR] auth - Could not register: maxAge should be a Number

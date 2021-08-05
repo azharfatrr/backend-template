@@ -16,9 +16,9 @@ export const jwtCookieName = 'jwt';
 /**
  * The expiration time for JWT token.
  */
-export const jwtExpirationTime = '1d';
+export const jwtExpirationTime = 86400000;
 
 /**
  * The expiration time for Cookies.
  */
-export const cookieExpirationTime = '1d';
+export const cookieExpirationTime = 86400000;

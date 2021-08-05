@@ -3,7 +3,7 @@ services:
   # Server service.
   nodejs:
     # The name of container.
-    container_name: virtual-hospital-dev
+    container_name: nodejs
     # Creating volume for data persistence, /app indicate the location at Docker File System.
     # This will mounting source code to /app directory.
     volumes:
@@ -16,6 +16,7 @@ services:
     env_file: ../../.env
     # Ports for connecting Docker Container with outside world.
     ports:
+      # CHECK AGAIN WITH ENVIROMENT VARIABLE.
       - 8000:8000
     # The networks between containers.
     networks:
@@ -26,16 +27,17 @@ services:
   # Database service.
   mariadb:
     # The name of container.
-    container_name: mariadb-vhs-dev
+    container_name: mariadb
     # Creating volume for data persistence
     volumes:
-      - vhs-volumes:/var/lib/mysql
+      - backend-template-volumes:/var/lib/mysql
     # Building Docker File.
     build: ../../builds/database
     # Including env file.
     env_file: ../../.env
     # Ports for connecting Docker Container with outside world.
     ports:
+      # CHECK AGAIN WITH ENVIROMENT VARIABLE.
       - 3306:3306
     # The networks between containers.
     networks:
@@ -47,4 +49,4 @@ networks:
 
 # Creating volume for data persistence
 volumes:
-  vhs-volumes:
+  backend-template-volumes:

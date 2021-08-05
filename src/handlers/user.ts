@@ -310,7 +310,7 @@ export const getUserPagination = async (req: Request, res: Response) => {
         limit: pageItem,
         pageItems: result.results.length,
         totalItems: result.total,
-        totalPages: Math.round(result.total / pageItem + 0.5),
+        totalPages: Math.floor(result.total / pageItem),
         items: resItem,
       },
     });

@@ -290,3 +290,74 @@
 [2021-07-30T09:05:36.412] [INFO] main - Server running on : http://localhost:8000
 [2021-07-30T09:06:02.933] [INFO] main - Server running on : http://localhost:8000
 [2021-07-30T09:06:31.840] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T02:51:32.148] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T02:57:06.851] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T02:57:55.244] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T02:58:42.168] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:01:06.685] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:01:24.749] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:01:37.228] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:02:17.171] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:04:52.293] [ERROR] user - Could not create user data: connect ECONNREFUSED 127.0.0.1:3306
+[2021-08-05T03:05:53.785] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:06:35.812] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:06:49.218] [ERROR] user - Could not create user data: connect ETIMEDOUT
+[2021-08-05T03:07:04.475] [ERROR] user - Could not create user data: connect ETIMEDOUT
+[2021-08-05T03:08:45.688] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:11:05.364] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:11:09.568] [ERROR] user - Could not create user data: connect ENOENT /var/run/mysqld/mysqld.sock
+[2021-08-05T03:13:08.717] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:13:30.063] [ERROR] user - Could not create user data: connect ECONNREFUSED 127.0.0.1:3306
+[2021-08-05T03:14:05.175] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:14:15.834] [ERROR] user - Could not create user data: insert into `user` (`email`, `first_name`, `last_name`, `password`, `picture`, `role`, `username`) values ('azharfatrr@gmail.com', 'Azhar', 'Faturahman', '123456', 'Hehe', 'admin', 'azharfatrr') - Table 'virtual-hospital.user' doesn't exist
+[2021-08-05T03:15:10.405] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:15:12.896] [ERROR] user - Could not create user data: insert into `user` (`email`, `first_name`, `last_name`, `password`, `picture`, `role`, `username`) values ('azharfatrr@gmail.com', 'Azhar', 'Faturahman', '123456', 'Hehe', 'admin', 'azharfatrr') - Table 'virtual-hospital.user' doesn't exist
+[2021-08-05T03:22:20.522] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:23:03.906] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:23:15.665] [ERROR] user - Could not create user data: insert into `user` (`email`, `first_name`, `last_name`, `password`, `picture`, `role`, `username`) values ('azharfatrr@gmail.com', 'Azhar', 'Faturahman', '123456', 'Hehe', 'admin', 'azharfatrr2') - Table 'backend-template.user' doesn't exist
+[2021-08-05T03:24:25.170] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:24:41.940] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:24:52.675] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:25:03.384] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:25:10.074] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:26:12.280] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:26:25.887] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:26:33.046] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:26:39.141] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:26:47.552] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:26:58.702] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:27:02.494] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:27:07.758] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:27:11.222] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:27:31.636] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:27:37.320] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:28:23.294] [ERROR] auth - Could not register: Bad "options.expiresIn" option the payload already has an "exp" property.
+[2021-08-05T03:29:46.168] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:29:48.593] [ERROR] auth - Could not register: Bad "options.expiresIn" option the payload already has an "exp" property.
+[2021-08-05T03:30:00.863] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:30:10.348] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:30:14.080] [ERROR] auth - Could not register: maxAge should be a Number
+[2021-08-05T03:31:41.554] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:31:43.945] [ERROR] auth - Could not register: maxAge should be a Number
+[2021-08-05T03:32:20.864] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:32:45.342] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:32:52.956] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:33:03.441] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:33:40.198] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:34:14.928] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:34:43.906] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:35:42.421] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:38:47.768] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:40:24.997] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:40:28.360] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:40:31.923] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:41:22.575] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:41:33.240] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:41:53.956] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:42:05.497] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:44:26.392] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:44:50.846] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:51:28.848] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:51:48.738] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:51:53.122] [INFO] main - Server running on : http://localhost:8000
+[2021-08-05T03:53:20.925] [INFO] main - Server running on : http://localhost:8000

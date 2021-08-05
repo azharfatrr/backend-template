@@ -24,9 +24,11 @@ export const jwtPrivateKey = fs.readFileSync(pathToPrivKey, 'utf8');
 const pathToPubKey = path.join(__dirname, '../../keys/', 'id_rsa_pub.pem');
 export const jwtPublicKey = fs.readFileSync(pathToPubKey, 'utf8');
 
-// The options for Passport JWT Strategy.
-// At a minimum, you must pass the `jwtFromRequest` and `secretOrKey` properties
-const options = {
+/**
+ * The options for Passport JWT Strategy.
+ * At a minimum, you must pass the `jwtFromRequest` and `secretOrKey` properties
+ */
+const optionsJWT = {
   secretOrKey: jwtPublicKey,
   algorithms: ['RS256'],
   jwtFromRequest: (req: Request): any => {
@@ -46,12 +48,13 @@ const options = {
  * @param exp : token expired information (ms).
  */
 passport.use(
-  new JWTStrategy(options, async (payload: jwtPayload, done) => {
+  new JWTStrategy(optionsJWT, async (payload: jwtPayload, done) => {
     // For refencence, check the payload in util.ts.
-    const { data, exp, iat } = payload;
+    const { data, exp } = payload;
 
     // Check token expired or not.
-    if (Date.now() >= (iat + exp) * 1000) return done(null, false);
+    console.log(exp);
+    if (Date.now() >= exp) return done(null, false);
 
     // Check if id exist or not.
     try {

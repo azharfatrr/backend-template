@@ -129,7 +129,6 @@ export const queryBuilder = (inputQuery: string, qBuilder: Objection.QueryBuilde
       });
     });
   });
-  console.log(qBuilderNew.toKnexQuery().toString());
 
   return qBuilderNew;
 };

@@ -3,6 +3,7 @@ import log4js from 'log4js';
 import errorHandler from 'errorhandler';
 import passport from 'passport';
 import cookieParser from 'cookie-parser';
+import dotenv from 'dotenv';
 
 import { defaultPort, apiVersion } from './configs/server';
 import routes from './routes/api_v1';
@@ -14,8 +15,8 @@ import setupDb from './db/dbSetup';
  */
 function main() {
   // Read the configs from env file.
-  require('dotenv').config()
-  
+  dotenv.config();
+
   // Setup the logger.
   log4js.configure(logConf);
   const log = log4js.getLogger('main');
