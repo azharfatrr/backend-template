@@ -1,0 +1,54 @@
+[2021-07-23T03:23:02.190] [ERROR] user - Could not get all user: select `user`.* from `user` - Table 'virtual-hospital.user' doesn't exist
+[2021-07-23T03:29:21.219] [ERROR] user - Could not create user data: insert into `user` (`email`, `first_name`, `last_name`, `password`, `picture`, `role`, `username`) values ('azharfatrr@gmail.com', 'Azhar', 'Faturahman', '4200', 'Test!', 'admin', 'azharfatrr') - Unknown column 'username' in 'field list'
+[2021-07-23T03:34:14.976] [ERROR] user - Could not update user data: Cannot read property 'getPublicData' of undefined
+[2021-07-23T03:35:21.389] [ERROR] user - Could not update user data: Cannot read property 'getPublicData' of undefined
+[2021-07-23T03:38:48.481] [ERROR] user - Could not get pagination user data: The operator "undefined" is not permitted
+[2021-07-23T03:39:04.995] [ERROR] user - Could not get pagination user data: The operator "undefined" is not permitted
+[2021-07-23T03:39:39.806] [ERROR] user - Could not get pagination user data: The operator "undefined" is not permitted
+[2021-07-23T03:40:23.840] [ERROR] user - Could not get pagination user data: The operator "undefined" is not permitted
+[2021-07-23T03:55:12.992] [ERROR] user - Could not get pagination user data: select `user`.* from `user` where ((`name` like '%azhar%')) limit 10 - Unknown column 'name' in 'where clause'
+[2021-07-23T03:56:01.192] [ERROR] user - Could not get pagination user data: select `user`.* from `user` where ((`firstname` like '%azhar%')) limit 10 - Unknown column 'firstname' in 'where clause'
+[2021-07-23T04:20:09.049] [ERROR] user - Could not get pagination user data: select `user`.* from `user` where ((`lastname` like '%faturahman%') and (`picture` like '%kelelawar%')) limit 10 - Unknown column 'lastname' in 'where clause'
+[2021-07-23T04:26:41.860] [ERROR] user - Could not get pagination user data: select `user`.* from `user` where ((`lastName` like '%faturahman%') and (`picture` like '%kelelawar%')) limit 10 - Unknown column 'lastName' in 'where clause'
+[2021-07-23T04:27:14.351] [ERROR] user - Could not get pagination user data: select `user`.* from `user` where ((`i` like '%2@last_name=@faturahman%')) limit 10 - Unknown column 'i' in 'where clause'
+[2021-07-27T02:17:29.251] [ERROR] user - Could not get all user: Ohh shit
+[2021-07-27T02:17:32.162] [ERROR] user - Could not get all user: Ohh shit
+[2021-07-27T02:18:37.331] [ERROR] user - Could not get all user: Ohh shit
+[2021-07-27T02:20:26.302] [ERROR] user - Could not get all user: Ohh shit
+[2021-07-27T02:20:27.522] [ERROR] user - Could not get all user: Ohh shit
+[2021-07-27T02:20:28.220] [ERROR] user - Could not get all user: Ohh shit
+[2021-07-27T02:20:29.895] [ERROR] user - Could not get all user: Ohh shit
+[2021-07-27T02:20:30.545] [ERROR] user - Could not get all user: Ohh shit
+[2021-07-27T02:20:31.491] [ERROR] user - Could not get all user: Ohh shit
+[2021-07-27T02:20:52.623] [ERROR] user - Could not get all user: Ohh shit
+[2021-07-27T02:20:53.407] [ERROR] user - Could not get all user: Ohh shit
+[2021-07-27T02:21:46.629] [ERROR] user - Could not get all user: Ohh shit
+[2021-07-27T02:21:47.482] [ERROR] user - Could not get all user: Ohh shit
+[2021-07-27T02:21:48.416] [ERROR] user - Could not get all user: Ohh shit
+[2021-07-27T02:21:52.698] [ERROR] user - Could not get all user: Ohh shit
+[2021-07-27T02:22:04.403] [ERROR] user - Could not get all user: Ohh shit
+[2021-07-27T02:22:05.573] [ERROR] user - Could not get all user: Ohh shit
+[2021-07-27T02:23:10.945] [ERROR] user - Could not get all user: Ohh shit
+[2021-07-27T02:23:11.845] [ERROR] user - Could not get all user: Ohh shit
+[2021-07-27T02:23:12.510] [ERROR] user - Could not get all user: Ohh shit
+[2021-07-27T02:23:13.133] [ERROR] user - Could not get all user: Ohh shit
+[2021-07-27T02:23:21.004] [ERROR] user - Could not get all user: Ohh shit
+[2021-07-27T02:38:52.772] [ERROR] user - Could not get all user: Shit
+[2021-07-30T07:35:24.724] [ERROR] user - Could not create user data: connect ECONNREFUSED 127.0.0.1:3306
+[2021-07-30T07:35:34.008] [ERROR] user - Could not get all user: connect ECONNREFUSED 127.0.0.1:3306
+[2021-07-30T07:35:36.736] [ERROR] user - Could not get all user: connect ECONNREFUSED 127.0.0.1:3306
+[2021-07-30T07:42:33.275] [ERROR] user - Could not get all user: connect ECONNREFUSED 127.0.0.1:3306
+[2021-07-30T07:43:36.471] [ERROR] user - Could not get all user: connect ECONNREFUSED 0.0.0.0:3306
+[2021-07-30T07:45:36.115] [ERROR] user - Could not get all user: connect ENOENT /var/run/mysqld/mysqld.sock
+[2021-07-30T07:48:06.883] [ERROR] user - Could not get all user: connect ECONNREFUSED 127.0.0.1:3306
+[2021-07-30T07:48:07.651] [ERROR] user - Could not get all user: connect ECONNREFUSED 127.0.0.1:3306
+[2021-07-30T07:48:57.411] [ERROR] user - Could not get all user: connect ENOENT /var/run/mysqld/mysqld.sock
+[2021-07-30T07:51:55.939] [ERROR] user - Could not get all user: connect ECONNREFUSED 127.0.0.1:3306
+[2021-07-30T07:51:56.783] [ERROR] user - Could not get all user: connect ECONNREFUSED 127.0.0.1:3306
+[2021-07-30T07:51:57.581] [ERROR] user - Could not get all user: connect ECONNREFUSED 127.0.0.1:3306
+[2021-07-30T07:53:47.022] [ERROR] user - Could not get all user: connect ECONNREFUSED 127.0.0.1:3306
+[2021-07-30T07:53:47.608] [ERROR] user - Could not get all user: connect ECONNREFUSED 127.0.0.1:3306
+[2021-07-30T08:05:24.642] [ERROR] user - Could not get all user: connect ECONNREFUSED 127.0.0.1:3306
+[2021-07-30T08:05:25.458] [ERROR] user - Could not get all user: connect ECONNREFUSED 127.0.0.1:3306
+[2021-07-30T08:08:34.307] [ERROR] user - Could not get all user: connect ECONNREFUSED 127.0.0.1:3306
+[2021-07-30T08:10:34.112] [ERROR] user - Could not get all user: connect ECONNREFUSED 127.0.0.1:3306

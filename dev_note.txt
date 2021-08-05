@@ -1,0 +1,2 @@
+To stop docker if container error occurs, you can use the following command:
+sudo systemctl restart docker.socket docker.service

@@ -1,0 +1,50 @@
+version: '3'
+services:
+  # Server service.
+  nodejs:
+    # The name of container.
+    container_name: virtual-hospital-dev
+    # Creating volume for data persistence, /app indicate the location at Docker File System.
+    # This will mounting source code to /app directory.
+    volumes:
+      - ../../:/app:z
+    # Building Docker File.
+    build:
+      context: ../../
+      dockerfile: builds/server/Dockerfile
+    # Including env file.
+    env_file: ../../.env
+    # Ports for connecting Docker Container with outside world.
+    ports:
+      - 8000:8000
+    # The networks between containers.
+    networks:
+      - dbconnect
+    # Dependencies for containers.
+    depends_on:
+      - mariadb
+  # Database service.
+  mariadb:
+    # The name of container.
+    container_name: mariadb-vhs-dev
+    # Creating volume for data persistence
+    volumes:
+      - vhs-volumes:/var/lib/mysql
+    # Building Docker File.
+    build: ../../builds/database
+    # Including env file.
+    env_file: ../../.env
+    # Ports for connecting Docker Container with outside world.
+    ports:
+      - 3306:3306
+    # The networks between containers.
+    networks:
+      - dbconnect
+# The networks between containers.
+networks:
+  dbconnect:
+    driver: bridge
+
+# Creating volume for data persistence
+volumes:
+  vhs-volumes:
