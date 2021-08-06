@@ -81,7 +81,7 @@ export const isAuthenticated = (req: Request, res: Response, next: NextFunction)
         apiVersion,
         error: {
           code: 401,
-          message: 'User not authorize',
+          message: 'User not authenticate',
         },
       });
     }
