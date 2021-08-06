@@ -72,7 +72,7 @@ export const register = async (req: Request, res: Response) => {
     const user = await User.query().insert(newUser);
 
     // Create token and set to cookies.
-    const token = issueJWT(newUser);
+    const token = issueJWT(user);
 
     // Create a cookies.
     res.cookie(jwtCookieName, token, {
