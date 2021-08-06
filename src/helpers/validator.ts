@@ -18,10 +18,17 @@ export const isValidEmail = (email: string): boolean => validator.isEmail(email)
 /**
  * isUniqueUsername is a function for validate input username is unique or not.
  * @param username - The username you want to validate.
+ * @param userId - The user id that going to exclude from the validation.
  */
-export const isUniqueUsername = async (username: string): Promise<boolean> => {
+export const isUniqueUsername = async (username: string, userId?: string): Promise<boolean> => {
+  // The default user id is empty.
+  let id = '';
+  if (userId) {
+    id = userId;
+  }
+
   // Query the user from database.
-  const user = await User.query().where({ username }).first();
+  const user = await User.query().whereNot({ id }).andWhere({ username }).first();
   // Negate the user, if user not already exist it will return true.
   return (!user);
 };

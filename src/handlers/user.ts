@@ -2,11 +2,13 @@ import { Request, Response } from 'express';
 import log4js from 'log4js';
 import Objection from 'objection';
 
-import { isValidId } from '../helpers/validator';
+import { isUniqueUsername, isValidEmail, isValidId } from '../helpers/validator';
 import { apiVersion } from '../configs/server';
 import { captureErrorLog } from '../helpers/log';
-import User, { isUser } from '../models/User';
+import User from '../models/User';
 import { queryBuilder } from '../helpers/query_builder';
+import { genPassword } from '../helpers/util';
+import { ErrorContainer } from '../types/error';
 
 const userLogger = log4js.getLogger('user');
 
@@ -25,16 +27,15 @@ export const getUserAll = async (req: Request, res: Response) => {
       data: allUser,
     });
   } catch (err) {
-    // Create error message.
-    const message = 'Could not get all user';
     // Capture error message to log.
-    captureErrorLog(userLogger, message, err);
+    captureErrorLog(userLogger, 'Could not get all user', err);
 
     // Return error response.
     return res.status(500).json({
       apiVersion,
       error: {
-        message,
+        code: 500,
+        message: 'Could not get all user',
       },
     });
   }
@@ -42,20 +43,32 @@ export const getUserAll = async (req: Request, res: Response) => {
 
 /**
  * GET /api/v1/users/:userId
- * getUserByID is a function for handle request get user public data by userId.
+ * getUserById is a function for handle request get user public data by userId.
+ * The user must be authorized.
  * @param req.params.userId - id of the user.
  */
-export const getUserByID = async (req: Request, res: Response) => {
+export const getUserById = async (req: Request, res: Response) => {
   try {
     // Get user id from request.
     const { userId } = req.params;
 
+    // Validate the input.
+    const errors = new ErrorContainer();
+
     // Validate if userId is valid.
     if (!isValidId(userId)) {
+      errors.addError('userId', 'params', 'User id is not valid');
+    }
+
+    // If there exist an error during validation, return the error.
+    if (errors.hasErrors()) {
+      // Send the error message.
       return res.status(400).json({
         apiVersion,
         error: {
+          code: 400,
           message: 'Failed during input validation',
+          errors: errors.getErrors(),
         },
       });
     }
@@ -67,6 +80,7 @@ export const getUserByID = async (req: Request, res: Response) => {
       return res.status(404).json({
         apiVersion,
         error: {
+          code: 404,
           message: 'User with specified id not exist',
         },
       });
@@ -75,7 +89,7 @@ export const getUserByID = async (req: Request, res: Response) => {
     // Return response with user public data.
     return res.json({
       apiVersion,
-      data: user.getPublicData(),
+      data: user.getAuthorizedData(),
     });
   } catch (err) {
     captureErrorLog(userLogger, 'Could not get user data', err);
@@ -84,6 +98,7 @@ export const getUserByID = async (req: Request, res: Response) => {
     return res.status(500).json({
       apiVersion,
       error: {
+        code: 500,
         message: 'Could not get user data',
       },
     });
@@ -91,86 +106,160 @@ export const getUserByID = async (req: Request, res: Response) => {
 };
 
 /**
- * POST /api/v1/users
+ * POST /api/v1/admin/users
  * createUser is a function for handle request creating new user.
+ * The user only can be created by admin.
  * @param req.body - User models.
  */
 export const createUser = async (req: Request, res: Response) => {
   try {
-    // Get the request body.
-    const reqBody = req.body;
+    // Validate the input.
+    const errors = new ErrorContainer();
 
-    // Validate if reqBody is user model.
-    if (!isUser(reqBody)) {
+    // Validate all request body needed is exist.
+    if (!req.body || !req.body.firstName || !req.body.lastName || !req.body.email
+      || !req.body.username || !req.body.password) {
+      errors.addError('firstName, lastName, email, username or password', 'body',
+        'Missing required fields.');
+    }
+
+    // Validate the email is valid.
+    if (!isValidEmail(req.body.email)) {
+      errors.addError('email', 'body', 'The email format is not valid.');
+    }
+
+    // Validate if the username is valid and unique.
+    if (!(await isUniqueUsername(req.body.username))) {
+      errors.addError('username', 'body', 'The username is already taken.');
+    }
+
+    // If there exist an error during validation, return the error.
+    if (errors.hasErrors()) {
+      // Send the error message.
       return res.status(400).json({
         apiVersion,
         error: {
+          code: 400,
           message: 'Failed during input validation',
+          errors: errors.getErrors(),
         },
       });
     }
 
-    // Create new user.
-    const user = await User.query().insert(reqBody);
+    // Create a new user object.
+    const newUser = {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      username: req.body.username,
+      picture: req.body.picture,
+      email: req.body.email,
+      role: req.body.role || 'user',
+    } as User;
 
-    // Return response with user data.
-    return res.status(201).json({
+    // Hash the password.
+    const saltHash = genPassword(req.body.password);
+    newUser.hash = saltHash.hash;
+    newUser.salt = saltHash.salt;
+
+    // Create a new user in database.
+    const user = await User.query().insert(newUser);
+
+    // Response the user.
+    return res.json({
       apiVersion,
-      data: user.getPublicData(),
+      data: {
+        register: true,
+        ...user.getAuthorizedData(),
+      },
     });
   } catch (err) {
-    captureErrorLog(userLogger, 'Could not create user data', err);
+    // Capture the server error.
+    captureErrorLog(userLogger, 'Could not create the new user', err);
 
-    // Return error response.
+    // Return the error.
     return res.status(500).json({
       apiVersion,
       error: {
-        message: 'Could not create user data',
+        code: 500,
+        message: 'Could not create the new user',
       },
     });
   }
 };
 
 /**
- * PUT /api/v1/users/:userId
+ * PUT /api/v1/admin/users/:userId
  * updateUser is a function for handle request updating user data.
+ * The user must be admin.
  * @param req.params.userId - id of the user.
  * @param req.body - User models.
  */
 export const updateUser = async (req: Request, res: Response) => {
   try {
-    // Get the user id.
+    // Get user id from request.
     const { userId } = req.params;
-    // Get the request body.
-    const reqBody = req.body;
+
+    // Validate the input.
+    const errors = new ErrorContainer();
 
     // Validate if userId is valid.
     if (!isValidId(userId)) {
+      errors.addError('userId', 'params', 'User id is not valid');
+    }
+
+    // Validate all request body needed is exist.
+    if (!req.body || !req.body.firstName || !req.body.lastName || !req.body.email
+      || !req.body.username || !req.body.password) {
+      errors.addError('firstName, lastName, email, username or password', 'body',
+        'Missing required fields.');
+    }
+
+    // Validate the email is valid.
+    if (!isValidEmail(req.body.email)) {
+      errors.addError('email', 'body', 'The email format is not valid.');
+    }
+
+    // Validate if the username is valid and unique.
+    if (!(await isUniqueUsername(req.body.username, userId))) {
+      errors.addError('username', 'body', 'The username is already taken.');
+    }
+
+    // If there exist an error during validation, return the error.
+    if (errors.hasErrors()) {
+      // Send the error message.
       return res.status(400).json({
         apiVersion,
         error: {
+          code: 400,
           message: 'Failed during input validation',
+          errors: errors.getErrors(),
         },
       });
     }
 
-    // Validate if reqBody is user model.
-    if (!isUser(reqBody)) {
-      return res.status(400).json({
-        apiVersion,
-        error: {
-          message: 'Failed during input validation',
-        },
-      });
-    }
+    // Create a updated user object.
+    const updatedUser = {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      username: req.body.username,
+      picture: req.body.picture,
+      email: req.body.email,
+      role: req.body.role || 'user',
+    } as User;
+
+    // Hash the password.
+    const saltHash = genPassword(req.body.password);
+    updatedUser.hash = saltHash.hash;
+    updatedUser.salt = saltHash.salt;
 
     // Update and fetch user data.
-    const user = await User.query().updateAndFetchById(userId, reqBody);
+    const user = await User.query().updateAndFetchById(userId, updatedUser);
     // User is not found
     if (!user) {
       return res.status(404).json({
         apiVersion,
         error: {
+          code: 404,
           message: 'User with specified id not exist',
         },
       });
@@ -179,7 +268,7 @@ export const updateUser = async (req: Request, res: Response) => {
     // Return response with user data.
     return res.status(201).json({
       apiVersion,
-      data: user.getPublicData(),
+      data: user.getAuthorizedData(),
     });
   } catch (err) {
     captureErrorLog(userLogger, 'Could not update user data', err);
@@ -188,6 +277,7 @@ export const updateUser = async (req: Request, res: Response) => {
     return res.status(500).json({
       apiVersion,
       error: {
+        code: 500,
         message: 'Could not update user data',
       },
     });
@@ -197,6 +287,7 @@ export const updateUser = async (req: Request, res: Response) => {
 /**
  * DELETE /api/v1/users/:userId
  * deleteUser is a function for handle request deleting user data.
+ * The user must be authorized.
  * @param req.params.userId - id of the user.
  */
 export const deleteUser = async (req: Request, res: Response) => {

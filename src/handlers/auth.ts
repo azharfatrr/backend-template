@@ -5,7 +5,7 @@ import { apiVersion, cookieExpirationTime, jwtCookieName } from '../configs/serv
 import User from '../models/User';
 import { genPassword, issueJWT, validPassword } from '../helpers/util';
 import { captureErrorLog } from '../helpers/log';
-import { ErrorInterfaces, errorAppender } from '../types/error';
+import { ErrorContainer } from '../types/error';
 import { isUniqueUsername, isValidEmail } from '../helpers/validator';
 
 const authLogger = log4js.getLogger('auth');
@@ -22,45 +22,34 @@ const authLogger = log4js.getLogger('auth');
 export const register = async (req: Request, res: Response) => {
   try {
     // Validate the input.
-    const errors : ErrorInterfaces[] = [];
+    const errors = new ErrorContainer();
 
     // Validate all request body needed is exist.
-    errorAppender(
-      !req.body || !req.body.firstName || !req.body.lastName || !req.body.email
-      || !req.body.username || !req.body.password,
-      errors,
-      'firstName, lastName, email, username or password',
-      'body',
-      'Missing required fields.',
-    );
+    if (!req.body || !req.body.firstName || !req.body.lastName || !req.body.email
+      || !req.body.username || !req.body.password) {
+      errors.addError('firstName, lastName, email, username or password', 'body',
+        'Missing required fields.');
+    }
 
     // Validate the email is valid.
-    errorAppender(
-      !isValidEmail(req.body.email),
-      errors,
-      'email',
-      'body',
-      'The email format is not valid.',
-    );
+    if (!isValidEmail(req.body.email)) {
+      errors.addError('email', 'body', 'The email format is not valid.');
+    }
 
     // Validate if the username is valid and unique.
-    errorAppender(
-      !(await isUniqueUsername(req.body.username)),
-      errors,
-      'username',
-      'body',
-      'The username already taken.',
-    );
+    if (!(await isUniqueUsername(req.body.username))) {
+      errors.addError('username', 'body', 'The username is already taken.');
+    }
 
     // If there exist an error during validation, return the error.
-    if (errors.length > 0) {
+    if (errors.hasErrors()) {
       // Send the error message.
       return res.status(400).json({
         apiVersion,
         error: {
           code: 400,
           message: 'Failed during input validation',
-          errors,
+          errors: errors.getErrors(),
         },
       });
     }
@@ -97,7 +86,7 @@ export const register = async (req: Request, res: Response) => {
       apiVersion,
       data: {
         register: true,
-        ...user.getPublicData(),
+        ...user.getAuthorizedData(),
       },
     });
   } catch (err) {
@@ -108,6 +97,7 @@ export const register = async (req: Request, res: Response) => {
     return res.status(500).json({
       apiVersion,
       error: {
+        code: 500,
         message: 'Could not register the user',
       },
     });
@@ -123,26 +113,22 @@ export const register = async (req: Request, res: Response) => {
 export const login = async (req: Request, res: Response) => {
   try {
     // Validate the input.
-    const errors : ErrorInterfaces[] = [];
+    const errors = new ErrorContainer();
 
     // Validate all request body needed is exist.
-    errorAppender(
-      !req.body || !req.body.username || !req.body.password,
-      errors,
-      'username or password',
-      'body',
-      'Missing required fields.',
-    );
+    if (!req.body || !req.body.username || !req.body.password) {
+      errors.addError('username or password', 'body', 'Missing required fields.');
+    }
 
     // If there exist an error during validation, return the error.
-    if (errors.length > 0) {
+    if (errors.hasErrors()) {
       // Send the error message.
       return res.status(400).json({
         apiVersion,
         error: {
           code: 400,
           message: 'Failed during input validation',
-          errors,
+          errors: errors.getErrors(),
         },
       });
     }
@@ -152,24 +138,24 @@ export const login = async (req: Request, res: Response) => {
 
     // Check if the user exists.
     if (!user) {
-      return res.status(401).json({
-        apiVersion,
-        error: {
-          message: 'Username or password is wrong',
-        },
-      });
+      errors.addError('username', 'body', 'The username is not found.');
     }
 
     // Check if the password is correct.
     if (!validPassword(req.body.password, user.hash, user.salt)) {
+      errors.addError('password', 'body', 'The password is not correct.');
+    }
+
+    // If there exist an error during username and password validation, return the error.
+    if (errors.hasErrors()) {
       return res.status(401).json({
         apiVersion,
         error: {
+          code: 401,
           message: 'Username or password is wrong',
         },
       });
     }
-
     // Create token and set to cookies.
     const token = issueJWT(user);
 
@@ -180,11 +166,12 @@ export const login = async (req: Request, res: Response) => {
       maxAge: Number(cookieExpirationTime),
     });
 
+    // Response the user.
     return res.json({
       apiVersion,
       data: {
         login: true,
-        ...user.getPublicData(),
+        ...user.getAuthorizedData(),
       },
     });
   } catch (err) {
@@ -193,6 +180,7 @@ export const login = async (req: Request, res: Response) => {
     return res.status(500).json({
       apiVersion,
       error: {
+        code: 500,
         message: 'Could not login the user',
       },
     });
@@ -205,10 +193,11 @@ export const login = async (req: Request, res: Response) => {
  */
 export const logout = (req: Request, res: Response) => {
   try {
+    // Remove the cookie.
     req.logout();
-
     res.clearCookie(jwtCookieName);
 
+    // Response the logout status.
     return res.json({
       apiVersion,
       data: {

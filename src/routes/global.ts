@@ -1,14 +1,13 @@
-import express from 'express';
-import { isAuthenticated } from '../configs/passport';
-
-import { login, logout, register } from '../handlers/auth';
-import {
-  getUserAll, getUserByID, createUser, updateUser, deleteUser, getUserPagination,
-} from '../handlers/user';
-
 /**
  * Endpoint route for global request.
  */
+
+import express from 'express';
+
+import { login, logout, register } from '../handlers/auth';
+import {
+  getUserAll, getUserPagination,
+} from '../handlers/user';
 
 // Initialize the router.
 const r = express.Router();
@@ -30,18 +29,6 @@ r.post('/auth/logout', logout);
 r.get('/users', getUserAll);
 // Get all users.
 r.get('/users/pagination', getUserPagination);
-// Get a user by id.
-r.get('/users/:userId', getUserByID);
-// Create a user.
-r.post('/users', createUser);
-// Update a user.
-r.put('/users/:userId', updateUser);
-// Delete a user.
-r.delete('/users/:userId', deleteUser);
 
-// TODO: TESTING, DELETE THIS
-r.get('/auth/test', isAuthenticated, (req, res) => {
-  res.send('test');
-});
-
+// Export the router.
 export default r;
