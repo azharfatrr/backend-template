@@ -37,6 +37,9 @@ export default
       directory: './migrations',
       tableName: 'knex_migrations',
     },
+    seeds: {
+      directory: './seeds',
+    },
   },
   staging: {
     client,
