@@ -15,7 +15,7 @@ import setupDb from './db/dbSetup';
  */
 function main() {
   // Read the configs from env file.
-  dotenv.config();
+  dotenv.config({ path: `${__dirname}/../.env` });
 
   // Setup the logger.
   log4js.configure(logConf);

@@ -15,7 +15,7 @@
     "run-prod": "docker-compose -p backend-template -f deployments/compose-prod/docker-compose.yml up --build -d",
     "stop-prod": "docker-compose -p backend-template -f deployments/compose-prod/docker-compose.yml down",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "test:unit-ts": "ENV_FILE=.env jest ./src/handlers/spec/*.ts",
+    "test:unit-ts": "ENV_FILE=.env jest ./src/handlers/tests/*.ts",
     "init-migrate": "knex migrate:make test_db -x ts --knexfile src/db/knexfile.js",
     "migrate-latest": "knex migrate:latest --knexfile src/db/knexfile.js",
     "migrate-up": "knex migrate:up --knexfile src/db/knexfile.js",
