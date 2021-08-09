@@ -165,12 +165,9 @@ export const createUser = async (req: Request, res: Response) => {
     const user = await User.query().insert(newUser);
 
     // Response the user.
-    return res.json({
+    return res.status(201).json({
       apiVersion,
-      data: {
-        register: true,
-        ...user.getAuthorizedData(),
-      },
+      data: user.getAuthorizedData(),
     });
   } catch (err) {
     // Capture the server error.
@@ -266,7 +263,7 @@ export const updateUser = async (req: Request, res: Response) => {
     }
 
     // Return response with user data.
-    return res.status(201).json({
+    return res.status(200).json({
       apiVersion,
       data: user.getAuthorizedData(),
     });

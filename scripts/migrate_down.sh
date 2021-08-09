@@ -1,1 +1,0 @@
-knex migrate:down --knexfile ./src/db/knexfile.js

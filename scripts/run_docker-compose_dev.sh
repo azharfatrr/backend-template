@@ -1,1 +1,0 @@
-docker-compose -p backend-template -f deployments/compose/docker-compose.yml up --build

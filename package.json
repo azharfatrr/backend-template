@@ -4,7 +4,23 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "dev": "nodemon --watch src --exec ts-node src/main.ts"
+    "start": "node dist/main.js",
+    "dev": "nodemon --watch src --exec ts-node src/main.ts",
+    "prod": "pm2-runtime start pm2.json",
+    "build": "tsc && cp -r ./src/documentation/swagger.yml ./dist/documentation",
+    "pm-start": "pm2-runtime  dist/main.js",
+    "up-dev": "docker-compose -p backend-template -f deployments/compose/docker-compose.yml up",
+    "run-dev": "docker-compose -p backend-template -f deployments/compose/docker-compose.yml up --build",
+    "stop-dev": "docker-compose -p backend-template -f deployments/compose/docker-compose.yml down",
+    "run-prod": "docker-compose -p backend-template -f deployments/compose-prod/docker-compose.yml up --build -d",
+    "stop-prod": "docker-compose -p backend-template -f deployments/compose-prod/docker-compose.yml down",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:unit-ts": "ENV_FILE=.env jest ./src/handlers/spec/*.ts",
+    "init-migrate": "knex migrate:make test_db -x ts --knexfile src/db/knexfile.js",
+    "migrate-latest": "knex migrate:latest --knexfile src/db/knexfile.js",
+    "migrate-up": "knex migrate:up --knexfile src/db/knexfile.js",
+    "migrate-down": "knex migrate:down --knexfile src/db/knexfile.js",
+    "run-seed": "knex seed:run --knexfile src/db/knexfile.js"
   },
   "keywords": [
     "express",
@@ -19,6 +35,8 @@
     "@types/node": "*",
     "@types/passport": "^1.0.7",
     "@types/passport-jwt": "^3.0.6",
+    "@types/supertest": "^2.0.11",
+    "@types/validator": "^13.6.3",
     "axios": "^0.21.1",
     "cookie-parser": "^1.4.5",
     "dotenv": "^10.0.0",
@@ -31,23 +49,27 @@
     "objection": "^2.2.15",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
+    "supertest": "^6.1.4",
     "ts-node": "^10.1.0",
     "validator": "^13.6.0"
   },
   "devDependencies": {
     "@types/errorhandler": "^1.5.0",
     "@types/express": "^4.17.13",
-    "@types/validator": "^13.6.3",
+    "@types/jest": "^26.0.24",
     "@typescript-eslint/eslint-plugin": "^4.28.4",
     "@typescript-eslint/parser": "^4.28.4",
-    "eslint": "^7.31.0",
+    "eslint": "^7.32.0",
     "eslint-config-airbnb": "18.2.1",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.4.0",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^1.7.0",
+    "jest": "^27.0.6",
     "nodemon": "^2.0.12",
+    "ts-jest": "^27.0.4",
     "typescript": "^4.3.5"
   }
 }

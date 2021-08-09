@@ -10,7 +10,7 @@ import { Request, Response, NextFunction } from 'express';
 
 import { jwtPayload } from '../types/jwt';
 import User from '../models/User';
-import { apiVersion } from './server';
+import { apiVersion, jwtCookieName } from './server';
 
 /**
  * The Private Key for JWT.
@@ -35,7 +35,7 @@ const optionsJWT = {
     // Read the token from the Authorization header.
     let token = (req.headers.authorization || '').split(' ')[1];
     // If token not exist, read token from cookies.
-    if (!token) token = req.cookies.jwt;
+    if (!token) token = req.cookies[jwtCookieName];
     return token;
   },
 };
@@ -154,22 +154,3 @@ export const isAdmin = (req: Request, res: Response, next: NextFunction) => {
     return next();
   })(req, res, next);
 };
-
-// /**
-//  * isAdmin function is middleware for checking if user have role admin or not, if not this
-//  * function will return 403 status error forbidden.
-//  * @param req.user.role : user role ('regular' or 'admin').
-//  */
-// export const isAdmin = (req: Request, res: Response, next: NextFunction) => {
-//   if (!req.user || req.user.role === 'regular') {
-//     return res.status(403).json({
-//       apiVersion,
-//       error: {
-//         code: 403,
-//         message: 'User forbidden',
-//       },
-//     });
-//   }
-
-//   return next();
-// };
