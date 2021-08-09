@@ -20,7 +20,8 @@
     "migrate-latest": "knex migrate:latest --knexfile src/db/knexfile.js",
     "migrate-up": "knex migrate:up --knexfile src/db/knexfile.js",
     "migrate-down": "knex migrate:down --knexfile src/db/knexfile.js",
-    "run-seed": "knex seed:run --knexfile src/db/knexfile.js"
+    "gen-seed": "knex seed:run --knexfile src/db/knexfile.js",
+    "gen-keys": "ts-node keys/generateKeys.ts"
   },
   "keywords": [
     "express",
