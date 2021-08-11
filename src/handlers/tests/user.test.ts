@@ -39,11 +39,11 @@ const setToken = (res: request.Response) => {
   return jwtCookie.split(';').find((jwtInfo: string) => jwtInfo.includes(jwtCookieName));
 };
 
-// Login the admin before all test executed.
-beforeAll(async () => {
+// Login the admin and before each test executed.
+beforeEach(async () => {
   // Create a request to login the admin.
-  const res = await superagent.post('/api/v1/auth/login').send(adminData);
-  tokenAdmin = setToken(res);
+  const resAdmin = await superagent.post('/api/v1/auth/login').send(adminData);
+  tokenAdmin = setToken(resAdmin);
 });
 
 // Delete all users in userId after all tests.
@@ -174,6 +174,35 @@ describe('POST /api/v1/admin/users', () => {
     // Validate the body of the response.
     expect(res.body).toHaveProperty('error');
   });
+
+  // TEST #5: Fail to create a new user because the user is not authorized.
+  it('Should not create a new user because the user is not authorized', async () => {
+    // Create a request to login the user.
+    const resUser = await superagent.post('/api/v1/auth/login').send(userData);
+    const tokenUser = setToken(resUser);
+
+    // The user data for testing.
+    const payload = {
+      firstName: 'Testing',
+      lastName: 'User',
+      username: 'user3',
+      password: 'test123',
+      email: 'test123@gmail.com',
+      role: 'user',
+    };
+
+    // Create a new request.
+    const res = await superagent
+      .post('/api/v1/admin/users')
+      .send(payload)
+      .set('Cookie', tokenUser)
+      .set('Accept', 'application/json');
+
+    // Validate the status code.
+    expect(res.status).toEqual(403);
+    // Validate the body of the response.
+    expect(res.body).toHaveProperty('error');
+  });
 });
 
 // The unit testing for get a user by Id.
@@ -257,65 +286,6 @@ describe('GET /api/v1/users/:userId', () => {
     expect(res.body).toHaveProperty('error');
   });
 });
-
-// // The unit testing for getting setting.
-// describe('GET /api/v1/settings/:settingKey', () => {
-//   // Fetch existing setting (created in previous test).
-//   it('Should fetch single existing setting', async () => {
-//     // Create a new request.
-//     // Note that the you get the key of setting from previous test.
-//     const res = await superagent
-//       .get('/api/v1/settings/noWa')
-//       .set('Accept', 'application/json');
-
-//     // Validate the status code.
-//     expect(res.status).toEqual(200);
-//     // Validate the body of the response.
-//     expect(res.body).toHaveProperty('data');
-//     // Validate the data of the response.
-//     expect(res.body.data).toHaveProperty('key', 'noWA');
-//     expect(res.body.data).toHaveProperty('value', '+62-813-5556-66');
-//     // 1 = true.
-//     expect(res.body.data).toHaveProperty('isPublic', 1);
-//   });
-
-//   // Failed to fetch data with settingId valid because data with that
-//   // settingId not exist in database.
-//   it('Failed to fetch setting because the data does not exist in databse', async () => {
-//     // Create a new request.
-//     const res = await superagent
-//       .get('/api/v1/settings/1000')
-//       .set('Accept', 'application/json');
-
-//     // Validate the status code.
-//     expect(res.status).toEqual(404);
-//     // Validate the body of the response.
-//     expect(res.body).toHaveProperty('error');
-//     expect(res.body.error).toHaveProperty('code', 404);
-//     expect(res.body.error).toHaveProperty('message', 'Setting with specified name not exist!');
-//   });
-
-//   // Failed to fetch data because the settingId is not a number.
-//   it('Failed to fetch setting because the settingId is invalid', async () => {
-//     // Create a new request.
-//     const res = await superagent
-//       .get('/api/v1/settings/aaa##@__  11')
-//       .set('Accept', 'application/json');
-
-//     // Validate the status code.
-//     expect(res.status).toEqual(400);
-//     // Validate the body of the response.
-//     expect(res.body).toHaveProperty('error');
-//     expect(res.body.error).toHaveProperty('code', 400);
-//     expect(res.body.error).toHaveProperty('message', 'Invalid settingKey params!');
-//     expect(res.body.error).toHaveProperty('errors');
-//     expect(res.body.error.errors).toContainEqual({
-//       message: 'settingKey must only contain letter and number!',
-//       location: 'settingKey',
-//       locationType: 'params',
-//     });
-//   });
-// });
 
 // // The unit testing for updating setting.
 // describe('PUT /api/v1/settings/:settingId', () => {
