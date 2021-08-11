@@ -20,32 +20,48 @@ const adminData = {
   password: process.env.ADMIN_PASSWORD,
 };
 
+// The user data for login.
+const userData = {
+  username: process.env.USER_USERNAME,
+  password: process.env.USER_PASSWORD,
+};
+
 // The token after login and needed for authentication of requests by admin.
-let token: string;
+let tokenAdmin: string;
+
+// getToken is a function for get the JWT from the request Response.
+const setToken = (res: request.Response) => {
+  // Get the cookies.
+  const { 'set-cookie': cookies } = res.headers;
+  // Search the cookies that contains the jwt token.
+  const jwtCookie = cookies.find((cookie: string) => cookie.includes(jwtCookieName));
+  // Set the token with the jwt.
+  return jwtCookie.split(';').find((jwtInfo: string) => jwtInfo.includes(jwtCookieName));
+};
 
 // Login the admin before all test executed.
-beforeAll((done) => {
-  superagent.post('/api/v1/auth/login')
-    .send(adminData)
-    .end((err, res) => {
-      // Get the cookies.
-      const { 'set-cookie': cookies } = res.headers;
-      // Search the cookies that contains the jwt token.
-      const jwtCookie = cookies.find((cookie: string) => cookie.includes(jwtCookieName));
-      // Set the token with the jwt.
-      token = jwtCookie.split(';').find((jwtInfo: string) => jwtInfo.includes(jwtCookieName));
-      done();
-    });
+beforeAll(async () => {
+  // Create a request to login the admin.
+  const res = await superagent.post('/api/v1/auth/login').send(adminData);
+  tokenAdmin = setToken(res);
 });
 
-// TODO: Delete all users in userId after all tests.
+// Delete all users in userId after all tests.
+afterAll((done) => {
+  // Foreach user id.
+  userId.forEach((Id) => {
+    superagent.delete(`/api/v1/users/${Id}`);
+  });
+  done();
+});
 
 // The unit testing for creating a new user.
+// Only the admin that can create a new user.
 describe('POST /api/v1/admin/users', () => {
   // TEST #1: Success create a new admin user.
   it('Should create a new admin', async () => {
     // The user data for testing.
-    const userData = {
+    const payload = {
       firstName: 'Testing',
       lastName: 'Admin',
       username: 'admin1',
@@ -57,8 +73,8 @@ describe('POST /api/v1/admin/users', () => {
     // Create a new request.
     const res = await superagent
       .post('/api/v1/admin/users')
-      .send(userData)
-      .set('Cookie', token)
+      .send(payload)
+      .set('Cookie', tokenAdmin)
       .set('Accept', 'application/json');
 
     // Validate the status code.
@@ -66,11 +82,11 @@ describe('POST /api/v1/admin/users', () => {
     // Validate the body of the response.
     expect(res.body).toHaveProperty('data');
     // Validate the data of the response.
-    expect(res.body.data).toHaveProperty('firstName', userData.firstName);
-    expect(res.body.data).toHaveProperty('lastName', userData.lastName);
-    expect(res.body.data).toHaveProperty('username', userData.username);
-    expect(res.body.data).toHaveProperty('email', userData.email);
-    expect(res.body.data).toHaveProperty('role', userData.role);
+    expect(res.body.data).toHaveProperty('firstName', payload.firstName);
+    expect(res.body.data).toHaveProperty('lastName', payload.lastName);
+    expect(res.body.data).toHaveProperty('username', payload.username);
+    expect(res.body.data).toHaveProperty('email', payload.email);
+    expect(res.body.data).toHaveProperty('role', payload.role);
 
     // Add the setting id for another unit testing.
     userId.push(res.body.data.id);
@@ -79,7 +95,7 @@ describe('POST /api/v1/admin/users', () => {
   // TEST #2: Success create a new user.
   it('Should create a new user', async () => {
     // The user data for testing.
-    const userData = {
+    const payload = {
       firstName: 'Testing',
       lastName: 'User',
       username: 'user1',
@@ -91,8 +107,8 @@ describe('POST /api/v1/admin/users', () => {
     // Create a new request.
     const res = await superagent
       .post('/api/v1/admin/users')
-      .send(userData)
-      .set('Cookie', token)
+      .send(payload)
+      .set('Cookie', tokenAdmin)
       .set('Accept', 'application/json');
 
     // Validate the status code.
@@ -100,20 +116,20 @@ describe('POST /api/v1/admin/users', () => {
     // Validate the body of the response.
     expect(res.body).toHaveProperty('data');
     // Validate the data of the response.
-    expect(res.body.data).toHaveProperty('firstName', userData.firstName);
-    expect(res.body.data).toHaveProperty('lastName', userData.lastName);
-    expect(res.body.data).toHaveProperty('username', userData.username);
-    expect(res.body.data).toHaveProperty('email', userData.email);
-    expect(res.body.data).toHaveProperty('role', userData.role);
+    expect(res.body.data).toHaveProperty('firstName', payload.firstName);
+    expect(res.body.data).toHaveProperty('lastName', payload.lastName);
+    expect(res.body.data).toHaveProperty('username', payload.username);
+    expect(res.body.data).toHaveProperty('email', payload.email);
+    expect(res.body.data).toHaveProperty('role', payload.role);
 
     // Add the setting id for another unit testing.
     userId.push(res.body.data.id);
   });
 
-  // TEST #3: Failure to create a new user because of missing fields.
+  // TEST #3: Fail to create a new user because of missing fields.
   it('Should not create a new user because some property is missing', async () => {
     // The user data for testing.
-    const userData = {
+    const payload = {
       lastName: 'User',
       username: 'user2',
       password: 'test123',
@@ -124,8 +140,8 @@ describe('POST /api/v1/admin/users', () => {
     // Create a new request.
     const res = await superagent
       .post('/api/v1/admin/users')
-      .send(userData)
-      .set('Cookie', token)
+      .send(payload)
+      .set('Cookie', tokenAdmin)
       .set('Accept', 'application/json');
 
     // Validate the status code.
@@ -134,10 +150,10 @@ describe('POST /api/v1/admin/users', () => {
     expect(res.body).toHaveProperty('error');
   });
 
-  // TEST #4: Failure to create a new user because username alread exists.
+  // TEST #4: Fail to create a new user because username alread exists.
   it('Should not create a new user because username already taken', async () => {
     // The user data for testing.
-    const userData = {
+    const payload = {
       firstName: 'Testing',
       lastName: 'User',
       username: 'user1',
@@ -149,12 +165,94 @@ describe('POST /api/v1/admin/users', () => {
     // Create a new request.
     const res = await superagent
       .post('/api/v1/admin/users')
-      .send(userData)
-      .set('Cookie', token)
+      .send(payload)
+      .set('Cookie', tokenAdmin)
       .set('Accept', 'application/json');
 
     // Validate the status code.
     expect(res.status).toEqual(400);
+    // Validate the body of the response.
+    expect(res.body).toHaveProperty('error');
+  });
+});
+
+// The unit testing for get a user by Id.
+describe('GET /api/v1/users/:userId', () => {
+  // TEST #1: Success get a user by Id.
+  it('Should get a user by Id', async () => {
+    // The id of the user for testing.
+    const id = userId[Math.floor(Math.random() * userId.length)];
+
+    // Create a new request.
+    const res = await superagent
+      .get(`/api/v1/users/${id}`)
+      .set('Cookie', tokenAdmin)
+      .set('Accept', 'application/json');
+
+    // Validate the status code.
+    expect(res.status).toEqual(200);
+    // Validate the body of the response.
+    expect(res.body).toHaveProperty('data');
+    // Validate the data of the response.
+    // Validate the data of the response.
+    expect(res.body.data).toHaveProperty('firstName');
+    expect(res.body.data).toHaveProperty('lastName');
+    expect(res.body.data).toHaveProperty('username');
+    expect(res.body.data).toHaveProperty('email');
+    expect(res.body.data).toHaveProperty('role');
+  });
+
+  // TEST #2: Fail get a user by Id because the user does not exist.
+  it('Should not get a user by Id because the user does not exist', async () => {
+    // The id of the user for testing.
+    const id = 999999; // definitely wont exist
+
+    // Create a new request.
+    const res = await superagent
+      .get(`/api/v1/users/${id}`)
+      .set('Cookie', tokenAdmin)
+      .set('Accept', 'application/json');
+
+    // Validate the status code.
+    expect(res.status).toEqual(404);
+    // Validate the body of the response.
+    expect(res.body).toHaveProperty('error');
+  });
+
+  // TEST #3: Fail get a user by Id because the Id is not valid.
+  it('Should not get a user by Id because the the Id is not valid.', async () => {
+    // The id of the user for testing.
+    const id = 'hehehe'; // definitely wont exist
+
+    // Create a new request.
+    const res = await superagent
+      .get(`/api/v1/users/${id}`)
+      .set('Cookie', tokenAdmin)
+      .set('Accept', 'application/json');
+
+    // Validate the status code.
+    expect(res.status).toEqual(400);
+    // Validate the body of the response.
+    expect(res.body).toHaveProperty('error');
+  });
+
+  // TEST #4: Fail get a user by Id because the user is not authorized.
+  it('Should not get a user by Id because the user is not authorized', async () => {
+    // Create a request to login the user.
+    const resUser = await superagent.post('/api/v1/auth/login').send(userData);
+    const tokenUser = setToken(resUser);
+
+    // The id of the user for testing.
+    const id = userId[Math.floor(Math.random() * userId.length)];
+
+    // Create a new request.
+    const res = await superagent
+      .get(`/api/v1/users/${id}`)
+      .set('Cookie', tokenUser)
+      .set('Accept', 'application/json');
+
+    // Validate the status code.
+    expect(res.status).toEqual(403);
     // Validate the body of the response.
     expect(res.body).toHaveProperty('error');
   });
