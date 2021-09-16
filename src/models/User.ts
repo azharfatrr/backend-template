@@ -18,6 +18,9 @@ class User extends Generic {
 
   email!: string;
 
+  // The id of device that used by the user.
+  deviceId: string;
+
   // Check authorization, the value can be 'admin' or 'user'.
   role!: string;
 
@@ -39,6 +42,7 @@ class User extends Generic {
       lastName: this.lastName,
       username: this.username,
       email: this.email,
+      deviceId: this.deviceId,
       picture: this.picture,
       role: this.role,
     };

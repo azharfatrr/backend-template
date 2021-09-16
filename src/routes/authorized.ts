@@ -7,7 +7,7 @@ import express from 'express';
 
 import { isAuthorized } from '../configs/passport';
 import {
-  deleteUser, getUserById,
+  deleteUser, getUserById, patchDeviceId,
 } from '../handlers/user';
 
 // Initialize the router.
@@ -20,6 +20,8 @@ const r = express.Router();
 r.get('/users/:userId', isAuthorized, getUserById);
 // Delete a user.
 r.delete('/users/:userId', isAuthorized, deleteUser);
+// Patch a user's device Id.
+r.patch('/users/:userId/devices', isAuthorized, patchDeviceId);
 
 // Export the router.
 export default r;

@@ -153,6 +153,7 @@ export const createUser = async (req: Request, res: Response) => {
       username: req.body.username,
       picture: req.body.picture,
       email: req.body.email,
+      deviceId: req.body.deviceId,
       role: req.body.role || 'user',
     } as User;
 
@@ -241,6 +242,7 @@ export const updateUser = async (req: Request, res: Response) => {
       username: req.body.username,
       picture: req.body.picture,
       email: req.body.email,
+      deviceId: req.body.deviceId,
       role: req.body.role || 'user',
     } as User;
 
@@ -320,6 +322,83 @@ export const deleteUser = async (req: Request, res: Response) => {
       error: {
         code: 500,
         message: 'Could not delete user data',
+      },
+    });
+  }
+};
+
+/**
+ * PATCH /api/v1/users/:userId/devices
+ * patchDeviceId is a function for patching the IoT device id of the user.
+ * The user must be authorized.
+ * @param req.params.userId - id of the user.
+ * @param req.body.deviceId - IoT device id.
+ * @param res - response object.
+ */
+export const patchDeviceId = async (req: Request, res: Response) => {
+  try {
+    // Get the user id.
+    const { userId } = req.params;
+
+    // Validate the input.
+    const errors = new ErrorContainer();
+
+    // Validate if userId is valid.
+    if (!isValidId(userId)) {
+      errors.addError('userId', 'params', 'User id is not valid');
+    }
+
+    // Validate all request body needed is exist.
+    if (!req.body || !req.body.deviceId) {
+      errors.addError('deviceId',
+        'Missing required fields.');
+    }
+
+    // If there exist an error during validation, return the error.
+    if (errors.hasErrors()) {
+      // Send the error message.
+      return res.status(400).json({
+        apiVersion,
+        error: {
+          code: 400,
+          message: 'Failed during input validation',
+          errors: errors.getErrors(),
+        },
+      });
+    }
+
+    // Create a updated user object.
+    const deviceId = {
+      deviceId: req.body.deviceId,
+    };
+
+    // Update and fetch user data.
+    const user = await User.query().updateAndFetchById(userId, deviceId);
+    // User is not found
+    if (!user) {
+      return res.status(404).json({
+        apiVersion,
+        error: {
+          code: 404,
+          message: 'User with specified id not exist',
+        },
+      });
+    }
+
+    // Return response with user data.
+    return res.status(200).json({
+      apiVersion,
+      data: user.getAuthorizedData(),
+    });
+  } catch (err) {
+    captureErrorLog(userLogger, 'Could not patch user device Id', err);
+
+    // Return error response.
+    return res.status(500).json({
+      apiVersion,
+      error: {
+        code: 500,
+        message: 'Could not patch user device Id',
       },
     });
   }
