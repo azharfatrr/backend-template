@@ -1,0 +1,1 @@
+docker-compose -p backend-template -f deployments/dev/docker-compose.yml up --detach

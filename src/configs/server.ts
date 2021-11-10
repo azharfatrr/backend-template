@@ -6,7 +6,7 @@ export const defaultPort = 8000;
 /**
  * Default api version configuration.
  */
-export const apiVersion = '1.0';
+export const apiVersion = 'v1';
 
 /**
  * Cookie name for access token user.

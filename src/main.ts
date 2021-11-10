@@ -47,7 +47,8 @@ function main() {
   // const swaggerDocument = YAML.load(path.resolve(__dirname, 'documentation/swagger.yml'));
 
   // Routing Endpoint.
-  app.use('/api/v1', routes);
+  const apiPath = `/api/${apiVersion}`;
+  app.use(apiPath, routes);
   // TODO: Swagger Documentation
   // app.use('/docs/v1', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
@@ -69,7 +70,7 @@ function main() {
 
   // Start listening to port.
   app.listen(port, () => {
-    log.info(`Server running on : http://${process.env.SERVER_HOST}:${process.env.SERVER_PORT}`);
+    log.info(`Server running on : http://${process.env.SERVER_HOST}:${process.env.SERVER_PORT}${apiPath}`);
   });
 }
 

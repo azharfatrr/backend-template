@@ -14,7 +14,7 @@ require('dotenv').config({ path: `${__dirname}/../../.env` });
 export const connection = {
   host: process.env.MYSQL_HOST || 'localhost',
   port: process.env.MYSQL_PORT || 3306,
-  database: process.env.MYSQL_DATABASE || 'virtual-hospital',
+  database: process.env.MYSQL_DATABASE || 'backend-template',
   user: process.env.MYSQL_USER || 'admin',
   password: process.env.MYSQL_PASSWORD || 'admin',
 };

@@ -14,6 +14,7 @@ services:
     env_file: ../../.env
     # Ports for connecting Docker Container with outside world.
     ports:
+      # Map between port in host and port in container.
       # CHECK AGAIN WITH ENVIROMENT VARIABLE.
       - 8000:8000
     # The networks between containers.
@@ -36,7 +37,7 @@ services:
     # Ports for connecting Docker Container with outside world.
     ports:
       # CHECK AGAIN WITH ENVIROMENT VARIABLE.
-      - 3306:3306
+      - 8001:3306
     # The networks between containers.
     networks:
       - dbconnect
