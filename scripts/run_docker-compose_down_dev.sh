@@ -1,0 +1,1 @@
+docker-compose -p doraemonangis -f deployments/compose-dev/docker-compose.yml down

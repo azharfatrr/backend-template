@@ -4,6 +4,7 @@ import errorHandler from 'errorhandler';
 import passport from 'passport';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 import { defaultPort, apiVersion } from './configs/server';
 import routes from './routes/api_v1';
@@ -25,11 +26,17 @@ function main() {
   const app = express();
   const port = process.env.SERVER_PORT || defaultPort;
 
+  // Setup the cors setting.
+  const corsOption = {
+    origin: '*',
+  };
+
   // Initialization database.
   setupDb();
 
   // Global Middleware
   app.use(express.static('./public'));
+  app.use(cors(corsOption));
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
 

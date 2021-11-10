@@ -6,7 +6,7 @@ import { isUniqueUsername, isValidEmail, isValidId } from '../helpers/validator'
 import { apiVersion } from '../configs/server';
 import { captureErrorLog } from '../helpers/log';
 import User from '../models/User';
-import { queryBuilder } from '../helpers/query_builder';
+import { queryBuilder } from '../helpers/queryBuilder';
 import { genPassword } from '../helpers/util';
 import { ErrorContainer } from '../types/error';
 
@@ -73,7 +73,7 @@ export const getUserById = async (req: Request, res: Response) => {
       });
     }
 
-    // Query all user from database.
+    // Query user from database.
     const user = await User.query().findById(userId);
     // Check if user is found.
     if (!user) {
@@ -153,6 +153,7 @@ export const createUser = async (req: Request, res: Response) => {
       username: req.body.username,
       picture: req.body.picture,
       email: req.body.email,
+      deviceId: req.body.deviceId,
       role: req.body.role || 'user',
     } as User;
 
@@ -241,6 +242,7 @@ export const updateUser = async (req: Request, res: Response) => {
       username: req.body.username,
       picture: req.body.picture,
       email: req.body.email,
+      deviceId: req.body.deviceId,
       role: req.body.role || 'user',
     } as User;
 

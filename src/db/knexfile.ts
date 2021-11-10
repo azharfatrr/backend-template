@@ -1,3 +1,6 @@
+// Read the configs from env file.
+require('dotenv').config({ path: `${__dirname}/../../.env` });
+
 /**
  * KnexFile is the configuration file for 3 types of functions:
  * 1. Knex migration server.
@@ -11,7 +14,7 @@
 export const connection = {
   host: process.env.MYSQL_HOST || 'localhost',
   port: process.env.MYSQL_PORT || 3306,
-  database: process.env.MYSQL_DATABASE || 'backend-template',
+  database: process.env.MYSQL_DATABASE || 'virtual-hospital',
   user: process.env.MYSQL_USER || 'admin',
   password: process.env.MYSQL_PASSWORD || 'admin',
 };

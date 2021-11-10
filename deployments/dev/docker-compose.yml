@@ -2,8 +2,6 @@ version: '3'
 services:
   # Server service.
   nodejs:
-    # The name of container.
-    container_name: nodejs
     # Creating volume for data persistence, /app indicate the location at Docker File System.
     # This will mounting source code to /app directory.
     volumes:
@@ -26,11 +24,11 @@ services:
       - mariadb
   # Database service.
   mariadb:
-    # The name of container.
+    # The name of container. It will used for connecting the database.
     container_name: mariadb
     # Creating volume for data persistence
     volumes:
-      - backend-template-volumes:/var/lib/mysql
+      - mariadb_volumes:/var/lib/mysql
     # Building Docker File.
     build: ../../builds/database
     # Including env file.
@@ -49,4 +47,4 @@ networks:
 
 # Creating volume for data persistence
 volumes:
-  backend-template-volumes:
+  mariadb_volumes:
